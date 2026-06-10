@@ -3,46 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Sent</title>
+  <title>Message Sent | Jarock Digital</title>
+
+  <link rel="stylesheet" href="style.css">
 
   <style>
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#0b0f17;
-      color:white;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-      text-align:center;
+    /* Center the success box beautifully on the page */
+    .success-wrapper {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
     }
 
-    .box{
-      padding:40px;
-      border:1px solid #1d2a3a;
-      border-radius:20px;
-      background:#111a2b;
+    .box {
+      max-width: 450px;
+      width: 100%;
+      padding: 50px 40px;
+      border: 1px solid #1d2a3a;
+      border-radius: 20px;
+      background: #111a2b;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
     }
 
-    h1{
-      color:#4aa3ff;
+    .box h1 {
+      color: #4aa3ff;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
     }
 
-    a{
-      display:inline-block;
-      margin-top:15px;
-      color:#4aa3ff;
-      text-decoration:none;
+    .box p {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Style the return button to look like your main CTA buttons */
+    .box .btn {
+      display: inline-block;
+      text-decoration: none;
     }
   </style>
 </head>
 
 <body>
-  <div class="box">
-    <h1>Message Sent ✔</h1>
-    <p>Thanks for reaching out. I’ll get back to you soon.</p>
-    <a href="/">Go back home</a>
+  <div class="success-wrapper">
+    <div class="box">
+      <h1>Message Sent ✔</h1>
+      <p>Thanks for reaching out. I’ll review your project details and get back to you soon!</p>
+      <a href="/" class="btn">Go back home</a>
+    </div>
   </div>
 </body>
 </html>
