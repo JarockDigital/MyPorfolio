@@ -3,342 +3,1510 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jarock Digital</title>
+  <title>Jarock Digital | Websites That Feel Modern & Different</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* DESIGN TOKENS (modern premium) */
+    :root {
+      --bg: #071022; /* deep navy */
+      --bg-card: #0f1724;
+      --bg-card-hover: #111924;
+      --border-color: rgba(255,255,255,0.04);
+      --border-hover: rgba(96,165,250,0.3); /* blue */
+      --primary: #60a5fa; /* refined blue */
+      --primary-hover: #3b82f6;
+      --primary-glow: rgba(96,165,250,0.16);
+      --text: #eef2f7;
+      --text-muted: #c0c8d6;
+      --text-dim: #98a4b6;
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      --container-pad: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* CYBER GLOW + GRAPH GRID BACKGROUND */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(74, 163, 255, 0.15), transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(147, 51, 234, 0.05), transparent 40%),
+        radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 55px 55px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* NAVIGATION */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 6%;
+      background: rgba(7, 10, 19, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(74,163,255,0.18);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    .nav.scrolled {
+      padding: 14px 6%;
+      background: rgba(7, 10, 19, 0.95);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border-bottom-color: rgba(74, 163, 255, 0.1);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .logo-wrap img {
+      width: 42px;
+      height: 42px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 10px var(--primary-glow);
+      transition: var(--transition);
+    }
+
+    .logo-wrap:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--primary);
+    }
+
+    .logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.12rem;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+  
+  /* Soft transition from pure white to a clean silver-blue */
+  background: linear-gradient(135deg, #ffffff 30%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile Hamburger Menu */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+      background: transparent;
+      border: none;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--text);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero-top-text {
+      color: var(--primary);
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      background: rgba(74, 163, 255, 0.06);
+      padding: 6px 16px;
+      border-radius: 100px;
+      display: inline-block;
+      border: 1px solid rgba(74, 163, 255, 0.15);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6.2vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: #ffffff;
+    }
+
+    .hero h1 span {
+      display: block;
+      margin-top: 8px;
+      background: linear-gradient(135deg, var(--primary), #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+
+    .hero-description {
+      color: var(--text-muted);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      line-height: 1.75;
+      max-width: 720px;
+      margin: 0 auto 40px;
+      font-weight: 300;
+    }
+
+    /* BUTTONS */
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 30px;
+      background: linear-gradient(90deg, var(--primary), #4f46e5 90%);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      background: var(--primary-hover);
+      box-shadow: 0 12px 30px rgba(74, 163, 255, 0.3);
+    }
+
+    .btn.outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: #fff;
+    }
+
+    .btn.outline:hover {
+      background: rgba(74, 163, 255, 0.08);
+    }
+
+    .disabled {
+      background: #142847;
+      border: 1px solid #1e355c;
+      color: #60a5fa;
+      opacity: 0.7;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 88px var(--container-pad);
+    }
+
+    .section-header {
+      margin-bottom: 55px;
+    }
+
+    .section-header span {
+      color: var(--primary);
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4.5vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+    }
+
+    .section-header h2::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      margin-top: 14px;
+      border-radius: 4px;
+    }
+
+    /* CARD STRUCTURES */
+    .about-box,
+    .service-card,
+    .portfolio-card,
+    .price-card,
+    .contact-form-container,
+    .contact-card,
+    .addon-item,
+    .rush-card {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: var(--transition);
+    }
+
+    /* ABOUT */
+    .about-box {
+      padding: 50px 40px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .about-box p {
+      margin-bottom: 20px;
+    }
+
+    .about-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-box strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      padding: 40px 30px;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 20px 40px rgba(74, 163, 255, 0.1);
+      background: var(--bg-card-hover);
+    }
+
+    .service-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    .portfolio-card {
+      overflow: hidden;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--border-hover);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .stack-images {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px 20px 0;
+    }
+
+    /* Reveal animation helpers */
+    .reveal-init {
+      opacity: 0;
+      transform: translateY(18px);
+      will-change: transform, opacity;
+    }
+
+    .reveal-init.reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Small accessible spinner used for form submit */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.18);
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .portfolio-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .portfolio-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .portfolio-info {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .portfolio-info h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .portfolio-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .portfolio-info .btn {
+      align-self: flex-start;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+
+    .coming-badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(74, 163, 255, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(74, 163, 255, 0.25);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+      align-self: flex-start;
+    }
+
+    /* PRICING */
+    .pricing-container {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .pricing-category-block {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .category-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      color: #ffffff;
+      margin: 0;
+      padding-left: 12px;
+      border-left: 4px solid var(--primary);
+      line-height: 1.2;
+    }
+
+    .pricing-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .pricing-grid.row-layout {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pricing-grid.three-col {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* PRICE CARDS */
+    .price-card {
+      padding: 45px 35px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .price-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+    }
+
+    .price-card.featured {
+      border-color: var(--primary);
+      background: linear-gradient(145deg, #0f1726, #16243d);
+    }
+
+    .custom-quote-card {
+      border: 1px dashed rgba(74, 163, 255, 0.4);
+      background: rgba(11, 26, 43, 0.3);
+    }
+
+    .card-header h4 {
+      margin: 0 0 10px 0;
+      font-size: 1.3rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .card-header .price {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .card-header .price span {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .style-quote-btn {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 13px 20px;
+      justify-content: center;
+    }
+
+    /* FEATURES LISTS */
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .features-list li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .features-list li::before {
+      content: "•";
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* ADDONS & RUSH */
+    .addons-rush-wrapper {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+    }
+
+    .sub-pricing-block {
+      background: #0b111c;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .addons-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .addon-item {
+      padding: 16px 24px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .addon-item span {
+      color: var(--text-muted);
+    }
+
+    .addon-item strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .rush-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .rush-card {
+      padding: 20px 24px;
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: 1.2fr auto 1.3fr;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .rush-card h5 {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .rush-pct {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .rush-card p {
+      margin: 0;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      text-align: right;
+    }
+
+    .rush-card.primary-rush {
+      border-color: rgba(74, 163, 255, 0.4);
+      background: rgba(74, 163, 255, 0.04);
+    }
+
+    /* CONTACT LAYOUT */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      position: relative;
+    }
+
+    .contact-form-container {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .contact-form-intro h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .contact-form-intro p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(7, 10, 19, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 12px var(--primary-glow);
+      background: rgba(15, 23, 38, 0.8);
+    }
+
+    .contact-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .contact-form button[type="submit"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 30px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .contact-form button[type="submit"]:hover {
+      transform: translateY(-2px);
+      background: var(--primary-hover);
+      box-shadow: 0 10px 25px rgba(74, 163, 255, 0.25);
+    }
+
+    /* Contact Side Cards */
+    .contact-side {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-card {
+      padding: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-card.highlight {
+      border-color: rgba(74, 163, 255, 0.4);
+      background: linear-gradient(145deg, #0f1726, #12213d);
+    }
+
+    .contact-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .contact-card span {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 50px 24px;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* MOBILE DEVICES ADAPTIVE LAYOUTS */
+    @media (max-width: 900px) {
+      .nav {
+        padding: 16px 24px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 75px;
+        left: 0;
+        width: 100%;
+        background: rgba(7, 10, 19, 0.98);
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 0;
+        gap: 24px;
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: var(--transition);
+        pointer-events: none;
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .pricing-grid.row-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .addons-rush-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .rush-card {
+        grid-template-columns: 1.2fr auto 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 90px;
+      }
+
+      .rush-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 8px;
+      }
+
+      .rush-card p {
+        text-align: center;
+      }
+    }
+
+    /* Progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), #4f46e5);
+      z-index: 1200;
+      transition: width 0.15s linear;
+    }
+
+    /* Lightbox modal */
+    .lightbox-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2,6,23,0.8);
+      z-index: 1500;
+      padding: 24px;
+    }
+
+    .lightbox-modal.open { display: flex; }
+
+    .lightbox-inner {
+      max-width: 1100px;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(2,6,23,0.8);
+      background: linear-gradient(180deg, rgba(10,14,22,0.95), rgba(6,10,18,0.95));
+      animation: pop 240ms ease;
+    }
+
+    @keyframes pop { from { transform: translateY(8px) scale(0.985); opacity: 0 } to { transform: none; opacity: 1 } }
+
+    .lightbox-inner img { width: 100%; height: auto; display:block; }
+
+    .lightbox-caption { padding: 12px 16px; color: var(--text-muted); font-size: 0.95rem; }
+
+    .lightbox-close { position: absolute; top: 18px; right: 18px; background: transparent; border: none; color: var(--text); font-size: 20px; cursor: pointer; }
+
+    /* Button ripple */
+    .btn { position: relative; overflow: hidden; }
+    .ripple { position: absolute; border-radius: 50%; transform: scale(0); background: rgba(255,255,255,0.18); animation: ripple 600ms linear; pointer-events: none; }
+    @keyframes ripple { to { transform: scale(4); opacity: 0 } }
+
+    /* Counter style small tweak */
+    .price[data-target] { transition: color 220ms; }
+  </style>
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<nav class="nav">
+  <div id="progress-bar" aria-hidden="true"></div>
 
-  <div class="logo-wrap">
-    <img src="images/logo.png" alt="">
-    <span>Jarock Digital</span>
-  </div>
+  <nav class="nav" id="main-nav">
+    <a href="#" class="logo-wrap" aria-label="Home">
+      <img src="images/logo.png" alt="Jarock Digital Logo" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=80&q=80'">
+      <span class="logo-text">Jarock Digital</span>
+    </a>
+    
+    <button class="menu-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-  <div class="nav-links">
-    <a href="#portfolio">Portfolio</a>
-    <a href="#services">Services</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-  </div>
-
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-
-    <p class="hero-top-text">
-      Modern Websites • Cinematic Design • Mobile Ready
-    </p>
-
-    <h1>
-      Websites That Feel
-      <span>Modern & Different</span>
-    </h1>
-
-    <p class="hero-description">
-      Clean responsive websites with cinematic layouts,
-      immersive visuals, and smooth user experience.
-    </p>
-
-    <div class="hero-buttons">
-      <a href="#portfolio" class="btn">
-        View Portfolio
-      </a>
-
-      <a href="#contact" class="btn outline">
-        Contact Me
-      </a>
+    <div class="nav-links" id="nav-menu" role="navigation" aria-label="Primary Navigation">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
     </div>
+  </nav>
 
-  </div>
+  <header class="hero">
+    <div class="hero-content">
+      <p class="hero-top-text">
+        Modern Websites • Clean Layouts • Mobile Ready
+      </p>
+      <h1>
+        Websites That Feel
+        <span id="hero-typed" data-phrases="Modern & Different.|Fast & Reliable.|Mobile First.|Conversion Focused.">Modern & Different.</span>
+      </h1>
+      <p class="hero-description">
+        Clean responsive websites with cinematic layouts, immersive visuals, and smooth user experience customized for creators and local businesses.
+      </p>
+      <div class="hero-buttons">
+        <a href="#portfolio" class="btn">View Portfolio</a>
+        <a href="#contact" class="btn outline">Contact Me</a>
+      </div>
+    </div>
+  </header>
 
-</header>
-
-<!-- ABOUT -->
-<section class="section">
-
-  <div class="section-header">
-    <span>ABOUT</span>
-    <h2>Designed To Stand Out</h2>
-  </div>
-
-  <div class="about-box">
-
-    <p>
-      I build custom websites focused on modern visuals,
-      clean layouts, mobile optimization, and immersive design.
-    </p>
-
-    <p>
-      Every project is designed from scratch to feel unique,
-      smooth, and visually memorable.
-    </p>
-
-  </div>
-
-</section>
-
-<!-- SERVICES -->
-<section class="section" id="services">
-
-  <div class="section-header">
-    <span>SERVICES</span>
-    <h2>What I Offer</h2>
-  </div>
-
-  <div class="services-grid">
-
-    <div class="service-card">
-      <h3>1 Page Websites</h3>
-
+  <section class="section" id="about">
+    <div class="section-header">
+      <span>ABOUT</span>
+      <h2>Designed To Stand Out</h2>
+    </div>
+    <div class="about-box">
       <p>
-        Modern landing pages designed for businesses,
-        creators, and personal brands.
+        I build custom websites focused on <strong>modern visuals</strong>, <strong>clean layouts</strong>, <strong>mobile optimization</strong>, and <strong>immersive design</strong>.
+      </p>
+      <p>
+        Every project is designed from scratch to feel unique, smooth, and visually memorable.
       </p>
     </div>
+  </section>
 
-    <div class="service-card">
-      <h3>Multi Page Websites</h3>
-
-      <p>
-        Full websites with multiple sections,
-        pages, and custom layouts.
-      </p>
+  <section class="section" id="services">
+    <div class="section-header">
+      <span>SERVICES</span>
+      <h2>What I Offer</h2>
     </div>
-
-    <div class="service-card">
-      <h3>Website Redesigns</h3>
-
-      <p>
-        Transform outdated websites into modern
-        responsive experiences.
-      </p>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>1 Page Websites</h3>
+        <p>Modern landing pages designed for businesses, creators, and personal brands.</p>
+      </div>
+      <div class="service-card">
+        <h3>Multi Page Websites</h3>
+        <p>Full websites with multiple sections, pages, and custom layouts.</p>
+      </div>
+      <div class="service-card">
+        <h3>Website Redesigns</h3>
+        <p>Transform outdated websites into modern responsive experiences.</p>
+      </div>
+      <div class="service-card">
+        <h3>Mobile Optimization</h3>
+        <p>Built to look clean across phones, tablets, laptops, and desktops.</p>
+      </div>
     </div>
+  </section>
 
-    <div class="service-card">
-      <h3>Mobile Optimization</h3>
-
-      <p>
-        Built to look clean across phones,
-        tablets, laptops, and desktops.
-      </p>
+  <section class="section" id="portfolio">
+    <div class="section-header">
+      <span>PORTFOLIO</span>
+      <h2>Featured Projects</h2>
     </div>
-
-  </div>
-
-</section>
-
-<!-- PORTFOLIO -->
-<section class="section" id="portfolio">
-
-  <div class="section-header">
-    <span>PORTFOLIO</span>
-    <h2>Featured Projects</h2>
-  </div>
-
-  <div class="portfolio-grid">
-
-    <!-- BLAZE -->
-    <div class="portfolio-card">
-
-      <div class="stack-images">
-        <img src="images/car.jpg" alt="">
-        <img src="images/car2.jpg" alt="">
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="stack-images">
+          <img class="lightbox" src="images/car.jpg" alt="Blaze" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=400&q=80'">
+          <img class="lightbox" src="images/car2.jpg" alt="Blaze" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80'">
+        </div>
+        <div class="portfolio-info">
+          <h3>Blaze Memorial</h3>
+          <p>Cinematic memorial website experience with immersive visuals and storytelling.</p>
+          <a href="https://blaze-memorial.netlify.app/" target="_blank" class="btn">Live Demo</a>
+        </div>
       </div>
 
-      <div class="portfolio-info">
-
-        <h3>Blaze Memorial</h3>
-
-        <p>
-          Cinematic memorial website experience
-          with immersive visuals and storytelling.
-        </p>
-
-        <a href="https://blaze-memorial.netlify.app/"
-           target="_blank"
-           class="btn">
-          Live Demo
-        </a>
-
+      <div class="portfolio-card">
+        <div class="stack-images">
+          <img class="lightbox" src="images/birthday.jpg" alt="Birthday Page" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=400&q=80'">
+          <img class="lightbox" src="images/birthday2.jpg" alt="Birthday Detail" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=400&q=80'">
+        </div>
+        <div class="portfolio-info">
+          <h3>Birthday Website</h3>
+          <p>Interactive birthday website with animations, transitions, and music integration.</p>
+          <a href="https://happybdaydemo.netlify.app/" target="_blank" class="btn">Live Demo</a>
+        </div>
       </div>
 
+      <div class="portfolio-card coming-soon">
+        <div class="stack-images">
+          <img class="lightbox" src="images/business.jpg" alt="Business Concept" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80'">
+        </div>
+        <div class="portfolio-info">
+          <div class="coming-badge">Coming Soon</div>
+          <h3>Business Website</h3>
+          <p>Professional business layout currently being developed and expanded.</p>
+          <a href="#" class="btn disabled">In Progress</a>
+        </div>
+      </div>
+
+      <div class="portfolio-card coming-soon">
+        <div class="stack-images">
+          <img class="lightbox" src="images/art.jpg" alt="Art Showcase" loading="lazy" decoding="async" onerror="this.src='https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=400&q=80'">
+        </div>
+        <div class="portfolio-info">
+          <div class="coming-badge">Coming Soon</div>
+          <h3>Art Portfolio</h3>
+          <p>Minimal creative showcase focused on artwork presentation and clean visuals.</p>
+          <a href="#" class="btn disabled">In Progress</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="section-header">
+      <span>PRICING PLANS</span>
+      <h2>Fair & Transparent Packages</h2>
     </div>
 
-    <!-- BIRTHDAY -->
-    <div class="portfolio-card">
+    <div class="pricing-container">
+      
+      <div class="pricing-category-block">
+        <h3 class="category-title">1. Creator / Personal Websites</h3>
+        <div class="pricing-grid row-layout">
+          
+          <div class="price-card">
+            <div class="card-header">
+              <h4>Creator Bio Page</h4>
+              <div class="price" data-target="75">$75<span>+</span></div>
+            </div>
+            <ul class="features-list">
+              <li>Social links</li>
+              <li>Mobile responsive</li>
+              <li>Custom styling</li>
+              <li>1 revision round</li>
+            </ul>
+          </div>
 
-      <div class="stack-images">
-        <img src="images/birthday.jpg" alt="">
-        <img src="images/birthday2.jpg" alt="">
+          <div class="price-card featured">
+            <div class="card-header">
+              <h4>Enhanced Creator Page</h4>
+              <div class="price" data-target="100">$100 <span>- $150</span></div>
+            </div>
+            <ul class="features-list">
+              <li>More sections</li>
+              <li>Animations</li>
+              <li>Media embeds</li>
+              <li>More customization</li>
+            </ul>
+          </div>
+          
+        </div>
       </div>
 
-      <div class="portfolio-info">
+      <div class="pricing-category-block">
+        <h3 class="category-title">2. Business Websites</h3>
+        <div class="pricing-grid three-col">
+          
+          <div class="price-card">
+            <div class="card-header">
+              <h4>Starter One-Page</h4>
+              <div class="price" data-target="350">$350 <span>- $750</span></div>
+            </div>
+            <ul class="features-list">
+              <li>Mobile responsive design</li>
+              <li>Contact + social links</li>
+              <li>Service/menu sections</li>
+              <li>Basic animations</li>
+              <li>1 revision round</li>
+            </ul>
+          </div>
 
-        <h3>Birthday Website</h3>
+          <div class="price-card featured">
+            <div class="card-header">
+              <h4>Premium One-Page</h4>
+              <div class="price" data-target="750">$750 <span>- $1,000</span></div>
+            </div>
+            <ul class="features-list">
+              <li>High-end custom design</li>
+              <li>Gallery sections</li>
+              <li>Booking / ordering integration</li>
+              <li>Strong branding layout</li>
+            </ul>
+          </div>
 
-        <p>
-          Interactive birthday website with animations,
-          transitions, and music integration.
-        </p>
+          <div class="price-card">
+            <div class="card-header">
+              <h4>3–4 Page Website</h4>
+              <div class="price" data-target="1000">$1,000 <span>- $1,500</span></div>
+            </div>
+            <ul class="features-list">
+              <li>Multiple pages (Home, Menu, About, Contact)</li>
+              <li>Navigation setup</li>
+              <li>Forms & integrations</li>
+              <li>Structured content flow</li>
+            </ul>
+          </div>
 
-        <a href="https://happybdaydemo.netlify.app/"
-           target="_blank"
-           class="btn">
-          Live Demo
-        </a>
+          <div class="price-card custom-quote-card">
+            <div class="card-header">
+              <h4>Special Requests</h4>
+              <div class="price">Custom<span> Quote</span></div>
+            </div>
+            <ul class="features-list">
+              <li>Complex or unexpected functionality</li>
+              <li>Advanced tailored layouts & visuals</li>
+              <li>Projects outside standard packages</li>
+              <li>Custom scope & milestone pricing</li>
+            </ul>
+            <a href="#contact" class="btn outline style-quote-btn">Get a Quote</a>
+          </div>
 
+        </div>
       </div>
 
-    </div>
-
-    <!-- BUSINESS -->
-    <div class="portfolio-card coming-soon">
-
-      <img src="images/business.jpg" alt="">
-
-      <div class="portfolio-info">
-
-        <div class="coming-badge">
-          Coming Soon
+      <div class="addons-rush-wrapper">
+        
+        <div class="sub-pricing-block">
+          <h3 class="category-title">3. Add-Ons (Flexible Pricing)</h3>
+          <div class="addons-grid">
+            <div class="addon-item"><span>Extra page</span> <strong>$150 - $250</strong></div>
+            <div class="addon-item"><span>Additional revisions</span> <strong>$25 - $75</strong></div>
+            <div class="addon-item"><span>Contact form setup</span> <strong>$25 - $75</strong></div>
+            <div class="addon-item"><span>Booking integration</span> <strong>$50 - $150</strong></div>
+            <div class="addon-item"><span>Ordering integration</span> <strong>$50 - $150</strong></div>
+            <div class="addon-item"><span>Gallery setup</span> <strong>$25 - $75</strong></div>
+            <div class="addon-item"><span>Domain setup help</span> <strong>$25 - $50</strong></div>
+            <div class="addon-item"><span>Copywriting</span> <strong>$50 - $200</strong></div>
+          </div>
         </div>
 
-        <h3>Business Website</h3>
-
-        <p>
-          Professional business layout currently
-          being developed and expanded.
-        </p>
-
-        <a href="#" class="btn disabled">
-          In Progress
-        </a>
-
-      </div>
-
-    </div>
-
-    <!-- ART -->
-    <div class="portfolio-card coming-soon">
-
-      <img src="images/art.jpg" alt="">
-
-      <div class="portfolio-info">
-
-        <div class="coming-badge">
-          Coming Soon
+        <div class="sub-pricing-block">
+          <h3 class="category-title">Delivery Rush Fees</h3>
+          <div class="rush-grid">
+            <div class="rush-card">
+              <h5>Standard Rush</h5>
+              <div class="rush-pct">+20%</div>
+              <p>Faster delivery</p>
+            </div>
+            <div class="rush-card primary-rush">
+              <h5>Priority Rush</h5>
+              <div class="rush-pct">+35%</div>
+              <p>High priority queue</p>
+            </div>
+            <div class="rush-card">
+              <h5>Express Rush</h5>
+              <div class="rush-pct">+50%</div>
+              <p>Urgent delivery</p>
+            </div>
+          </div>
         </div>
 
-        <h3>Art Portfolio</h3>
-
-        <p>
-          Minimal creative showcase focused on
-          artwork presentation and clean visuals.
-        </p>
-
-        <a href="#" class="btn disabled">
-          In Progress
-        </a>
-
       </div>
 
     </div>
+  </section>
 
-  </div>
-
-</section>
-
-<!-- PRICING -->
-<section class="section" id="pricing">
-
-  <div class="section-header">
-    <span>PRICING</span>
-    <h2>Starter Pricing</h2>
-  </div>
-
-  <div class="pricing-grid">
-
-    <div class="price-card">
-      <h3>$50</h3>
-      <p>1 Page Website</p>
+  <section class="section" id="contact">
+    <div class="section-header">
+      <span>CONTACT</span>
+      <h2>Let's Build Something</h2>
     </div>
+    <div class="contact-layout">
+      
+      <div class="contact-form-container">
+        <div class="contact-form-intro">
+          <h3>Send a Message</h3>
+          <p>Fill out the form details below to share your website vision and get a response directly.</p>
+        </div>
 
-    <div class="price-card featured">
-      <h3>$100</h3>
-      <p>2-3 Pages</p>
-    </div>
+        <form class="contact-form" name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact">
+          <input type="hidden" name="redirect" value="/success.html">
 
-    <div class="price-card">
-      <h3>$150</h3>
-      <p>4-5 Pages</p>
-    </div>
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <textarea name="message" placeholder="Tell me about your website..." required></textarea>
 
-  </div>
-
-</section>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-
-  <div class="section-header">
-    <span>CONTACT</span>
-    <h2>Let's Build Something</h2>
-  </div>
-
-  <div class="contact-layout">
-
-<form class="contact-form" name="contact" method="POST" data-netlify="true">
-
-  <input type="hidden" name="form-name" value="contact">
-  <input type="hidden" name="redirect" value="/success.html">
-
-  <input type="text" name="name" placeholder="Name" required>
-
-  <input type="email" name="email" placeholder="Email" required>
-
-  <textarea name="message" placeholder="Tell me about your website..." required></textarea>
-
-  <button type="submit">Send Message</button>
-
-</form>
-    <div class="contact-side">
-
-      <div class="contact-card highlight">
-        <h3>Direct Contact</h3>
-        <p>JarockDigital@gmail.com</p>
-        <p>(336) 303-0215</p>
+          <button type="submit">Send Message</button>
+        </form>
       </div>
 
-      <div class="contact-card">
-        <h3>Social Presence</h3>
-        <p>@jarockdigital</p>
-        <span>TikTok • Instagram</span>
+      <div class="contact-side">
+        <div class="contact-card highlight">
+          <h3>Direct Contact</h3>
+          <p>JarockDigital@gmail.com</p>
+          <p>(336) 303-0215</p>
+        </div>
+        <div class="contact-card">
+          <h3>Social Presence</h3>
+          <p>@jarockdigital</p>
+          <span>TikTok • Instagram</span>
+        </div>
+        <div class="contact-card">
+          <h3>Payments</h3>
+          <p>Cash App • PayPal • Cash</p>
+          <span>Invoices handled after contact form submission</span>
+        </div>
       </div>
-
-      <div class="contact-card">
-        <h3>Payments</h3>
-        <p>Cash App • PayPal • Cash</p>
-        <span>Invoices handled after contact form submission</span>
-      </div>
-
     </div>
+  </section>
 
+  <footer>
+    © 2026 Jarock Digital
+  </footer>
+
+  <div class="lightbox-modal" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <div class="lightbox-inner" role="dialog" aria-modal="true">
+      <img src="" alt="" id="lightbox-img">
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
   </div>
 
-</section>
+  <script>
+    // Sticky Nav Blurring on Scroll
+    const mainNav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        mainNav.classList.add('scrolled');
+      } else {
+        mainNav.classList.remove('scrolled');
+      }
+    }, { passive: true });
 
-<!-- FOOTER -->
-<footer>
-  © 2026 Jarock Digital
-</footer>
+    // Mobile Hamburger Slideover Menu Logic
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
 
+    function openMenu() {
+      navMenu.classList.add('active');
+      mobileToggle.classList.add('open');
+      mobileToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      navMenu.classList.remove('active');
+      mobileToggle.classList.remove('open');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      mobileToggle.querySelectorAll('span').forEach(s => {
+        s.style.transform = 'none';
+        s.style.opacity = '1';
+      });
+    }
+
+    mobileToggle.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('active')) closeMenu();
+      else openMenu();
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        closeMenu();
+        mobileToggle.focus();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+
+    // Add subtle reveal animations using IntersectionObserver
+    const revealTargets = document.querySelectorAll('.section, .service-card, .portfolio-card, .price-card, .contact-card');
+    revealTargets.forEach(el => el.classList.add('reveal-init'));
+
+    if ('IntersectionObserver' in window) {
+      const ro = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealTargets.forEach(t => ro.observe(t));
+    } else {
+      revealTargets.forEach(t => t.classList.add('reveal'));
+    }
+
+    // Contact form submit loading layout state
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      contactForm.addEventListener('submit', (e) => {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.dataset.orig = submitBtn.innerHTML;
+          submitBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Sending...';
+        }
+      });
+    }
+
+    // Typewriter cycling for hero
+    (function heroTypewriter(){
+      const el = document.getElementById('hero-typed');
+      if(!el) return;
+      const phrases = (el.dataset.phrases || '').split('|').map(s=>s.trim()).filter(Boolean);
+      let idx = 0, ch = 0, deleting = false;
+      const speed = 40, pause = 1500;
+
+      function tick(){
+        const current = phrases[idx % phrases.length] || el.textContent;
+        if(!deleting) {
+          el.textContent = current.slice(0, ch+1);
+          ch++;
+          if(ch >= current.length){ deleting = true; setTimeout(tick, pause); return; }
+        } else {
+          el.textContent = current.slice(0, ch-1);
+          ch--;
+          if(ch <= 0){ deleting = false; idx++; }
+        }
+        setTimeout(tick, deleting ? speed/1.4 : speed);
+      }
+      tick();
+    })();
+
+    // Scroll progress bar indicator
+    (function progressBar(){
+      const bar = document.getElementById('progress-bar');
+      if(!bar) return;
+      window.addEventListener('scroll', () => {
+        const doc = document.documentElement;
+        const scrolled = (window.scrollY) / (doc.scrollHeight - doc.clientHeight);
+        bar.style.width = Math.min(1, Math.max(0, scrolled)) * 100 + '%';
+      }, { passive: true });
+    })();
+
+    // Parallax background movement base tracking
+    (function parallaxBG(){
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(prefersReduced) return;
+      window.addEventListener('pointermove', (e)=>{
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        document.documentElement.style.setProperty('--bg-pos-x', x + '%');
+        document.documentElement.style.setProperty('--bg-pos-y', y + '%');
+      }, { passive: true });
+    })();
+
+    // Lightbox for showcase photos
+    (function lightbox(){
+      const modal = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+      const closeBtn = document.getElementById('lightbox-close');
+      const imgs = document.querySelectorAll('img.lightbox');
+      if(!modal||!img) return;
+
+      imgs.forEach(i=>{
+        i.style.cursor = 'zoom-in';
+        i.addEventListener('click', ()=>{
+          img.src = i.src;
+          img.alt = i.alt || '';
+          const card = i.closest('.portfolio-card');
+          const title = card ? (card.querySelector('.portfolio-info h3')?.textContent || '') : '';
+          caption.textContent = title;
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+          closeBtn.focus();
+        });
+      });
+
+      function close(){ modal.classList.remove('open'); document.body.style.overflow = ''; }
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', (e)=>{ if(e.target === modal) close(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+    })();
+
+    // Button dynamic ripple effect setup
+    (function ripple(){
+      document.addEventListener('click', function(e){
+        const btn = e.target.closest('.btn');
+        if(!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height) * 1.2;
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', ()=> ripple.remove());
+      });
+    })();
+
+    // Animated counters dashboard initialization
+    (function counters(){
+      const els = document.querySelectorAll('.price[data-target]');
+      if(!els.length) return;
+      const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries, obs)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            animate(entry.target);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 }) : null;
+
+      els.forEach(el=> (io ? io.observe(el) : animate(el)) );
+
+      function animate(el){
+        const target = Number(el.dataset.target || 0);
+        if(!target) return;
+        const start = 0; const duration = 900;
+        let startTime = null;
+        function step(ts){
+          if(!startTime) startTime = ts;
+          const progress = Math.min(1, (ts - startTime) / duration);
+          const value = Math.floor(progress * (target - start) + start);
+          const rest = el.querySelector('span');
+          el.childNodes[0].nodeValue = '$' + value + (rest ? ' ' : '');
+          if(progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+    })();
+  </script>
 </body>
 </html>
